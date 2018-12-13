@@ -7,10 +7,11 @@
     $blogName=$_SESSION['blogName'];
     $numerWpisu=$_SESSION['numerWpisu'];
 
-        //echo $blogName;
-        //echo $numerWpisu;
-
+    $semaphore = sem_get(10000, 1, 0666, 1);
+	sem_acquire($semaphore);
+   
     $blogDirectory = opendir("./".$blogName."/");
+
     if(!file_exists("./".$numerWpisu.".k")){
         mkdir("./".$blogName.$numerWpisu.".k",0755);
     }
@@ -31,4 +32,5 @@
     fclose($commentFile);
 
     closedir($blogDirectory);
+    sem_release($semaphore);
 ?>

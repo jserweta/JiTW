@@ -6,6 +6,9 @@
     $pass_code=md5($password);
     $opis=$_POST["opis"];
 
+    $Semaphore = sem_get(9998, 1, 0666, 1);
+	sem_acquire($Semaphore);
+
     if(!file_exists("./$dir_name")){
         mkdir("./$dir_name", 0755);
         $info = fopen("./$dir_name/info", "w");
@@ -18,5 +21,6 @@
     else{
         print_r("Blog o podanej nazwie już istnieje!");
     }
+    sem_release($Semaphore);
 ?>
 

@@ -17,7 +17,7 @@
     $attachment3=$_FILES["file3"];
     $attachments=array($attachment1,$attachment2,$attachment3);
 
-
+    
     $mainFolder = opendir("./");
     while(false !== ($blogDirectory = readdir($mainFolder))){
         if($blogDirectory == "." || $blogDirectory == ".."){
@@ -48,9 +48,15 @@
             $unikalneID++;
         }while(file_exists($wpisPath));
 
+        $semaphore = sem_get(9999, 1, 0666, 1);
+        sem_acquire($semaphore);
+        
         $fileWpis = fopen($wpisPath, "w");
         fwrite($fileWpis, $wpis.PHP_EOL);
         fclose($fileWpis);
+
+        sem_release($semaphore);
+
         print_r("Wpis dodano poprawnie!");
 
        
@@ -75,5 +81,5 @@
         print_r("Podałes niepoprawne dane!");
     }
     closedir($mainFolder);
-// semafory sem_get semr_equire sem_relese
+
 ?>

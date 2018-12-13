@@ -13,7 +13,8 @@
         
         $blogName = "";
 		if (isset($_GET['nazwa'])) {
-			$blogName = $_GET['nazwa'];
+            $blogName = $_GET['nazwa'];
+            $_SESSION['blogName']=$blogName;
         }
         
         if ($blogName == "") {
@@ -30,6 +31,7 @@
             }
             echo"</ul>";       
         }else{
+            
             $blogExists=false;
             $blogFolder = "./".$blogName."/";
             $_SESSION['blogName']=$blogName;
@@ -56,10 +58,9 @@
 //Wpisy       
             
                 $open=opendir($blogFolder);
+
                 while(false !== ($blogFiles = readdir($open))){
-
-                    $_SESSION['numerWpisu']=$blogFiles;
-
+                    
                     if(!is_dir($blogFiles) && preg_match('/\\d{16}$/', $blogFiles)){
                         $year=substr($blogFiles,0,4);
                         $month=substr($blogFiles,4,2);
@@ -84,8 +85,6 @@
                                 echo sprintf("Dołączony plik: <a href=\"./%s/%s\">%s</a><br /> ", $blogName, $File, $File);
                             }
                         }
-                        
-                    
                         echo "<p><a href=\"komentarz_form.php\">Dodaj komentarz do wpisu</a></p>";                
                         
 //Komentarze            
@@ -110,23 +109,22 @@
 										$j++;
 									}
 									fclose($commentFile);
-									echo "<br />";
                                 }
                             }
                         }
-                    
+                        
                     }
-                }
-      
+                }      
             }
-
+            
             if(!$blogExists){
                 echo "Blog o takiej nazwie nie istnieje! </br>";
             }
-           
+            
         }
-        echo $_SESSION['blogName'];
-                        echo $_SESSION['numerWpisu'];
+        
+        //if(isset($_SESSION['blogName']) && !empty($_SESSION['blogName'])){echo $_SESSION['blogName'];}else{echo "error blogname";}
+        //if(isset($_SESSION['numerWpisu']) && !empty($_SESSION['numerWpisu'])){echo $_SESSION['numerWpisu'];}else{echo "error wpis nuemr";}
         closedir($open);
         closedir($new_open);
         closedir($mainFolder);
