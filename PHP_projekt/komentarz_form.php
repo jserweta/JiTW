@@ -8,12 +8,15 @@
 </head>
 <body>
         <?php
-            include 'menu.php';       
+            include 'menu.php'; 
+            if (isset($_GET['blogPostNumber'])) {
+                $blogPostNumberGET = $_GET['blogPostNumber'];   
+            }
         ?>
 
 <h1>Dodanie komentarza</h1>
     </br>
-    <form action="koment.php" method="POST">
+    <form action="koment.php?blogPostNumber=<?php echo $blogPostNumberGET; ?>" method="POST">
         Wybierz rodzaj komentarza: 
         <select name="commentType">
             <option>Pozytywny</option>

@@ -23,4 +23,3 @@
     }
     sem_release($Semaphore);
 ?>
-

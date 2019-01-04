@@ -8,13 +8,11 @@
 </head>
 <body>
     <?php
-        session_start();
         include 'menu.php';
         
         $blogName = "";
 		if (isset($_GET['nazwa'])) {
             $blogName = $_GET['nazwa'];
-            $_SESSION['blogName']=$blogName;
         }
         
         if ($blogName == "") {
@@ -33,9 +31,7 @@
         }else{
             
             $blogExists=false;
-            $blogFolder = "./".$blogName."/";
-            $_SESSION['blogName']=$blogName;
-            if(file_exists($blogFolder)){
+            if(file_exists("$blogName/")){
                 
                 $blogExists=true;
                 $i=1;
@@ -57,7 +53,7 @@
                 fclose($fileInfo);
 //Wpisy       
             
-                $open=opendir($blogFolder);
+                $open=opendir("./$blogName/");
 
                 while(false !== ($blogFiles = readdir($open))){
                     
@@ -78,40 +74,44 @@
                        
 
 //Zalaczniki            
-                    $new_open=opendir($blogFolder);
+                    $new_open=opendir("./$blogName/");
                         $pattern='/'.$blogFiles.'[1-3]/';
                         while(false !== ($File = readdir($new_open))){
                             if(preg_match($pattern,$File)){
                                 echo sprintf("Dołączony plik: <a href=\"./%s/%s\">%s</a><br /> ", $blogName, $File, $File);
                             }
                         }
-                        echo "<p><a href=\"komentarz_form.php\">Dodaj komentarz do wpisu</a></p>";                
+                    closedir($new_open);
+//Komentarze 
+
+                        $blogPostNumberGET = $blogFiles;
+                        $label = "Dodaj komentarz do wpisu";
+                        echo "<p>".sprintf("<a href=\"komentarz_form.php?blogPostNumber=%s\">%s</a>",$blogPostNumberGET, $label)."</p>";
                         
-//Komentarze            
-                        
-                        if(file_exists($blogFolder.$blogFiles.".k")){
-                            while(false !== ($commFile=readdir($blogFolder.$blogFiles.".k/"))){
+                        if($commDirectory = opendir("./$blogName/$blogFiles.k")){
+                            while(false !== ($commFile=readdir($commDirectory))){
                                 if($commFile == "." || $commFile == ".."){
                                     continue;
                                 }elseif(!is_dir($commFile)){
-                                    $commentFile = fopen($commFile, 'r');
+                                    $commentFile = fopen("./$blogName/$blogFiles.k/$commFile", 'r');
                                     $j = 1;
-									while (($line = fgets($plikKomentarza)) !== false) {
+									while (($line = fgets($commentFile)) !== false) {
 										if ($j == 1) {
 											echo "<strong>Typ komentarza: </strong>" . $line . "<br />";
 										} else if ($j == 2) {
 											echo "<strong>Data komentarza: </strong>" . $line . "<br />";
 										} else if ($j == 3) {
-											echo "<strong>Autor komentarza: </strong>" . $line . "<br />";
+											echo "<strong>Autor komentarza: </strong>" . $line;
 										} else if ($j >= 4) {
-											echo $line . "<br />";
+											echo $line . "<br /><br />";
 										}
 										$j++;
 									}
 									fclose($commentFile);
                                 }
                             }
-                        }
+                        }else{echo"dupa";}
+                        closedir($commDirectory);
                         
                     }
                 }      
@@ -123,10 +123,7 @@
             
         }
         
-        //if(isset($_SESSION['blogName']) && !empty($_SESSION['blogName'])){echo $_SESSION['blogName'];}else{echo "error blogname";}
-        //if(isset($_SESSION['numerWpisu']) && !empty($_SESSION['numerWpisu'])){echo $_SESSION['numerWpisu'];}else{echo "error wpis nuemr";}
         closedir($open);
-        closedir($new_open);
         closedir($mainFolder);
     ?> 
 </body>
