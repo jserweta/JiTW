@@ -139,7 +139,7 @@
                 <input type="text" id="nickINPUT" name="nickINPUT"><br>
 
                 Wiadomość:<br>
-                <textarea id="messageINPUT" name="messageINPUT">Wpisz wiadomość...</textarea><br>
+                <textarea id="messageINPUT" name="messageINPUT"  placeholder="Wpisz wiadomość..."></textarea><br>
                 <button type="button" onclick="send()">Wyślij</button>
             </div>
 		</form>

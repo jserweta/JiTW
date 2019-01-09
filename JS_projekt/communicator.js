@@ -37,9 +37,7 @@ function send() {
 	if (messageINPUT.value.length == 0 || nickINPUT.length ==0) { 
         	alert("Uzupełnij dane!");
 	        return;
-	} else if(messageINPUT.value == "Wpisz wiadomość..."){
-		alert("Nie podałeś treści!");
-		return;
+	
 	}else if(messageINPUT.value.length > 100){
 		alert("Twoja wiadomość jest za długa!");
 		return;
@@ -49,7 +47,7 @@ function send() {
 	            if (this.readyState == 4 && this.status == 200) {
 			if(this.response == "failure")
 				alert("Wysyłanie niepowiodoło się!");
-				messageINPUT.value = "Wpisz wiadomość...";
+				//messageINPUT.value = "Wpisz wiadomość...";
 	            }
         	};
 	        newMessage.open("GET", "send.php?nickINPUT=" + nickINPUT + "&messageINPUT=" + messageINPUT.value, true);
