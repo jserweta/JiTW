@@ -1,0 +1,19 @@
+#communicator {
+	position: fixed;
+	background-color: white;
+	top: 60px;
+	right: 100px;
+	width: 300px;
+	height: 600px;
+	
+}
+
+#messageArea {
+	width: 250px;
+	height: 160px;
+}
+
+#messageINPUT {
+	width: 250px;
+	height: 50px;
+}
