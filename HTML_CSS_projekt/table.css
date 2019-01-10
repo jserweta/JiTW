@@ -1,0 +1,18 @@
+table{
+    border: 5px inset rgb(90, 83, 83);
+}
+th{
+    border: 3px dashed rgb(0, 0, 0);
+    background-color: white;
+    padding: 5px;
+}
+td:nth-last-child(1){
+    border: 3px solid rgb(143, 41, 46);
+    background-color: rgb(181, 181, 176);
+}
+
+td{
+    border: 3px solid rgb(143, 41, 46);
+    background-color: rgba(206, 212, 218, 0.295);
+}
+

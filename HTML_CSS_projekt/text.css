@@ -1,0 +1,50 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#container{
+    font-size: 20px;
+}
+#title h1{
+    color:white;
+    text-align: center;
+    text-decoration: underline;
+}
+#nav h1{
+    text-align: center;
+}
+#styleList a{
+    font:bold 20px 'Times New Roman';
+    color:rgb(89, 136, 207);
+    letter-spacing: 3px;
+    margin: 0;
+    width: 300px;
+}
+th{
+    text-transform:uppercase;
+}
+tfoot{
+    text-align: right;
+}
+h1{
+    font:bold 30px 'Times New Roman';
+    color:rgb(89, 136, 207);
+    letter-spacing: 3px;
+    margin: 0;
+}
+h2{
+    color:rgb(156, 18, 18);
+}
+h3{
+    color:rgb(226, 196, 24);
+}
+p{
+    text-indent: 40px;
+    text-align: justify;
+}
+p:first-letter{
+    font-size:30px;
+    color:red;
+}
+a{
+    text-decoration: none;
+}
